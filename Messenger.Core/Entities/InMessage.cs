@@ -7,6 +7,10 @@ namespace Messenger.Core.Entities
         public string IpAdress { get; set; }
         public DateTime RecivedAt { get; set; }
 
+        public InMessage()
+        {
+
+        }
         public InMessage(string messageText, string ipAdress, DateTime createdAt)
         {
             MessageText = messageText;

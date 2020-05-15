@@ -6,6 +6,9 @@ namespace Messenger.Core.Entities
     {
         public bool Sent { get; set; }
 
+        public OutMessage() { 
+
+        }
         public OutMessage(string messageText)
         {
             MessageText = messageText;
