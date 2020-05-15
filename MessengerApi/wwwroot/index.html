@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Полученные сообщения</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <h1>Список сообщений</h1>
+
+    <table class="table table-condensed table-striped  col-md-6">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Текст сообщения</th>
+                <th>Ip отправтеля</th>
+                <th>Время создания</th>
+                <th>Время получения</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <script>
+
+        async function GetMessages() {
+            const response = await fetch("api/InMessages", {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+            if (response.ok === true) {
+                const messages = await response.json();
+                let rows = document.querySelector("tbody");
+                messages.forEach(message => {
+                    rows.append(messageToTableRow(message));
+                });
+            }
+        }
+
+        function messageToTableRow(message) {
+            const tr = document.createElement("tr");
+            tr.setAttribute("data-rowid", message.Id);
+
+            const idTd = document.createElement("td");
+            idTd.append(message.id);
+            tr.append(idTd);
+
+            const messageTextTd = document.createElement("td");
+            messageTextTd.append(message.messageText);
+            tr.append(messageTextTd);
+
+            const ipTd = document.createElement("td");
+            ipTd.append(message.ipAdress);
+            tr.append(ipTd);
+
+            const createdAtTd = document.createElement("td");
+            createdAtTd.append(new Date(message.createdAt).toLocaleString('ru'));
+            tr.append(createdAtTd);
+
+            const recievedAtTd = document.createElement("td");
+            recievedAtTd.append(new Date(message.recivedAt).toLocaleString('ru'));
+            tr.append(recievedAtTd);
+
+            return tr;
+        }
+
+        GetMessages();
+    </script>
+</body>
+</html>
