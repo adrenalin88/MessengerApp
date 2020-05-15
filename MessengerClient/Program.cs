@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,11 +22,15 @@ namespace MessengerClient
     class Program
     {
         private static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
+        private static readonly int _timeout = int.Parse(ConfigurationManager.AppSettings["RepeatTimeout"]);
+        private static readonly string _url = ConfigurationManager.AppSettings["ServerPostUrl"];
         private static IServiceProvider _serviceProvider;
         static void Main(string[] args)
         {            
             ConfigureLogging();
             RegisterServices();
+
+            Task.Run(SendArchiveMessagesAsync);
 
             while (true)
             {
@@ -91,7 +96,7 @@ namespace MessengerClient
             var result = MessageSendResult.BeforeSend();
             while (!result.Sucsess)
             {
-                result = await messageSender.SendMessageAsync("https://localhost:44370/api/InMessages", new InMessage(message.MessageText, message.CreatedAt));
+                result = await messageSender.SendMessageAsync(_url, new InMessage(message.MessageText, message.CreatedAt));
                 if (result.Sucsess)
                 {
                     message.Sent = true;
@@ -105,10 +110,27 @@ namespace MessengerClient
                         _log.Error("Ошибка при отправке сообщения на сервер", result.Exception);
                     else
                         _log.Warn($"При отправке сообщения получен ответ {result.ResponseCode}");
-                }
-                Thread.Sleep(500000);
+                    Thread.Sleep(_timeout);
+                }                
             }
             return true;
+        }
+
+        // Отправка сохраненных сообщений, которые не были отправлены ранее.
+        static async Task SendArchiveMessagesAsync()
+        {
+            var messageService = _serviceProvider.GetService<IClientMessageService>();
+            var unsentMessages = await messageService.GetUnsentAsync();
+            var totalCnt = unsentMessages.Count();
+            if (totalCnt > 0)
+            {
+                _log.Info($"Отправка ранее неотправленных сообщений. К отправке: {totalCnt}");
+                var sucsessCnt = 0;
+                foreach (var message in unsentMessages)
+                    if (await TrySendMessageAsync(message))
+                        sucsessCnt++;
+                _log.Info($"Отправка ранее неотправленных сообщений. Отправлено {sucsessCnt} из {totalCnt} сообщений");
+            }
         }
     }
 }
