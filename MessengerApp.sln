@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messenger.BLL", "Messenger.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessengerApi", "MessengerApi\MessengerApi.csproj", "{1470CEDE-D468-45CE-97B7-E775D2DBD841}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessengerClient", "MessengerClient\MessengerClient.csproj", "{863F056C-CDDD-44F8-9504-627F4DA0D88A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{1470CEDE-D468-45CE-97B7-E775D2DBD841}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1470CEDE-D468-45CE-97B7-E775D2DBD841}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1470CEDE-D468-45CE-97B7-E775D2DBD841}.Release|Any CPU.Build.0 = Release|Any CPU
+		{863F056C-CDDD-44F8-9504-627F4DA0D88A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{863F056C-CDDD-44F8-9504-627F4DA0D88A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{863F056C-CDDD-44F8-9504-627F4DA0D88A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{863F056C-CDDD-44F8-9504-627F4DA0D88A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
