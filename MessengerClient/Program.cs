@@ -1,4 +1,6 @@
-﻿using Messenger.BLL.Interfaces;
+﻿using log4net;
+using log4net.Config;
+using Messenger.BLL.Interfaces;
 using Messenger.BLL.Services;
 using Messenger.Core.Entities;
 using Messenger.DAL.EF;
@@ -8,16 +10,26 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Configuration;
+using System.IO;
+using System.Reflection;
 
 namespace MessengerClient
 {
     class Program
     {
+        private static readonly ILog _log = LogManager.GetLogger(MethodBase.GetCurrentMethod().DeclaringType);
         private static IServiceProvider _serviceProvider;
         static void Main(string[] args)
         {
+            ConfigureLogging();
             RegisterServices();
             DisposeServices();
+        }
+
+        private static void ConfigureLogging()
+        {
+            var logRepository = LogManager.GetRepository(Assembly.GetEntryAssembly());
+            XmlConfigurator.Configure(logRepository, new FileInfo("log4net.config"));
         }
 
         private static void RegisterServices()
