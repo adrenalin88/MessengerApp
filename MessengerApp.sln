@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messenger.Core", "Messenger
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messenger.DAL", "Messenger.DAL\Messenger.DAL.csproj", "{33B41875-39FE-4F15-849C-13E552AEDEF3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messenger.BLL", "Messenger.BLL\Messenger.BLL.csproj", "{7ABC2377-F7E5-4AE4-8FA8-1AAC799C1FB8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{33B41875-39FE-4F15-849C-13E552AEDEF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{33B41875-39FE-4F15-849C-13E552AEDEF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{33B41875-39FE-4F15-849C-13E552AEDEF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7ABC2377-F7E5-4AE4-8FA8-1AAC799C1FB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7ABC2377-F7E5-4AE4-8FA8-1AAC799C1FB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7ABC2377-F7E5-4AE4-8FA8-1AAC799C1FB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7ABC2377-F7E5-4AE4-8FA8-1AAC799C1FB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
