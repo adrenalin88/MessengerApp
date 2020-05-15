@@ -11,6 +11,11 @@ namespace Messenger.Core.Entities
         {
 
         }
+        public InMessage(string messageText, DateTime createdAt)
+        {
+            MessageText = messageText;
+            CreatedAt = createdAt;
+        }
         public InMessage(string messageText, string ipAdress, DateTime createdAt)
         {
             MessageText = messageText;
