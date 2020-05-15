@@ -38,7 +38,7 @@ namespace MessengerClient
                 var message = Console.ReadLine();
                 if (message.ToLower() == "/выход")
                     break;
-                ProceedMessageAsync(message);
+                Task.Run(() => ProceedMessageAsync(message));
             }
 
             DisposeServices();
