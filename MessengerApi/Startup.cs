@@ -17,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace MessengerApi
 {
@@ -37,6 +38,11 @@ namespace MessengerApi
 
             services.AddControllers();
 
+            services.AddSwaggerGen(s =>
+            {
+                s.SwaggerDoc("v1", new OpenApiInfo() { Title = "Messenger Api", Version = "v1" });
+            });
+
             services.AddScoped(typeof(IRepository<,>), typeof(Repository<,>));
             services.AddScoped<IMessageService, MessageService>();
         }
@@ -50,6 +56,13 @@ namespace MessengerApi
             }
 
             loggerFactory.AddLog4Net();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(s =>
+                {
+                    s.SwaggerEndpoint("/swagger/v1/swagger.json", "Message API V1");
+                }
+            );
 
             app.UseHttpsRedirection();
 
